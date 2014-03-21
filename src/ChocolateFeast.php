@@ -3,9 +3,26 @@ class ChocolateFeast
 {
     public function eat($moneyAvailable, $pricePerChocolateUnit, $envelopesPerFreeUnit)
     {
+        $this->guardFromFreeChocolates($pricePerChocolateUnit);
+        $this->guardFromOneEnvelopeOneChocolateExchange($envelopesPerFreeUnit);
+
         $chocolateBought = $this->buyChocolate($moneyAvailable, $pricePerChocolateUnit);
         $freeChocolate = $this->getSomeFreeChocolate($chocolateBought, $envelopesPerFreeUnit);
         return (int) $chocolateBought + (int) $freeChocolate;
+    }
+
+    private function guardFromFreeChocolates($pricePerChocolateUnit)
+    {
+        if ($pricePerChocolateUnit <= 0) {
+           throw new ChocolateFeastException('It is not possible to have FREE chocolate!');
+        }
+    }
+
+    private function guardFromOneEnvelopeOneChocolateExchange($envelopesPerFreeUnit)
+    {
+        if ($envelopesPerFreeUnit <= 1) {
+            throw new ChocolateFeastException('You cannot exchange one chocolate for one envelope!');
+        }
     }
 
     private function buyChocolate($moneyAvailable, $pricePerChocolateUnit)

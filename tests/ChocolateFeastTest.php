@@ -11,34 +11,63 @@ class ChocolateFeastTest extends PHPUnit_Framework_TestCase
         $this->chocolateFeast = new ChocolateFeast();
     }
 
-    public function testDontHaveEnoughMoney()
+    /**
+     * @test
+     */
+    public function dontHaveEnoughMoney()
     {
         $this->assertSame(0, $this->chocolateFeast->eat(0, self::DEFAULT_PRICE, self::DEFAULT_ENVELOPES_PER_FREE_UNIT));
     }
 
-//    public function testWithFreeChocolates()
-//    {
-//        $this->assertSame(, $this->chocolateFeast->eat(5, 0, self::DEFAULT_ENVELOPES_PER_FREE_UNIT));
-//    }
-
-    public function testHaveEnoughMoneyButNoRemainder()
+    /**
+     * @test
+     */
+    public function haveEnoughMoneyButNoRemainder()
     {
         $this->assertSame(1, $this->chocolateFeast->eat(5, self::DEFAULT_PRICE, self::DEFAULT_ENVELOPES_PER_FREE_UNIT));
     }
-    
-    public function testHaveEnoughMoneyButRemainder()
+
+    /**
+     * @test
+     */
+    public function haveEnoughMoneyButRemainder()
     {
         $this->assertSame(2, $this->chocolateFeast->eat(12, self::DEFAULT_PRICE, self::DEFAULT_ENVELOPES_PER_FREE_UNIT));
     }
 
-    public function testGettingAnExtraChocolate()
+    /**
+     * @test
+     */
+    public function gettingAnExtraChocolate()
     {
         $this->assertSame(21, $this->chocolateFeast->eat(100, self::DEFAULT_PRICE, self::DEFAULT_ENVELOPES_PER_FREE_UNIT));
     }
 
-    public function testEatGettingExtraChocolatesAndExchangingEnvelopesAgain()
+    /**
+     * @test
+     */
+    public function gettingExtraChocolatesAndExchangingEnvelopesAgain()
     {
         $this->assertSame(5, $this->chocolateFeast->eat(6, 2, 2));
     }
+
+    /**
+     * @test
+     * @expectedException ChocolateFeastException
+     */
+    public function cannotEatWithFreeChocolates()
+    {
+        $this->chocolateFeast->eat(5, 0, self::DEFAULT_ENVELOPES_PER_FREE_UNIT);
+    }
+
+    /**
+     * @test
+     * @expectedException ChocolateFeastException
+     */
+    public function cannotChangeOneEnvelopeForOneChocolate()
+    {
+        $this->chocolateFeast->eat(5, 5, 1);
+    }
+
 }
 

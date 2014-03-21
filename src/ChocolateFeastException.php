@@ -7,4 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class ChocolateFeastException extends Exception {}
+class ChocolateFeastException extends Exception
+{
+
+}
