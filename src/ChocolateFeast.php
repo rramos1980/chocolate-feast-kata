@@ -37,7 +37,8 @@ class ChocolateFeast
         do {
             $freeChocolate = $this->exchangeEnvelopesForChocolate($envelopesAvailable, $envelopesPerFreeUnit);
             $envelopesAvailable = $this->computeRemainingEnvelopesFromExchange(
-                $envelopesAvailable, $envelopesPerFreeUnit
+                $envelopesAvailable,
+                $envelopesPerFreeUnit
             );
             $envelopesAvailable += $freeChocolate;
             $totalFreeChocolate += $freeChocolate;
